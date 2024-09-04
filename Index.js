@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const emailRoutes = require('./routes/emailRoutes');
-
-require('dotenv').config();
+require('dotenv').config();  // Add this line
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,7 +16,9 @@ mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-});
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.log(err));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/emails', emailRoutes);
